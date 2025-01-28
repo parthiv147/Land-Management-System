@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Razorpay Integration</title>
+		<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+		<style>
+			body {
+				margin: 0;
+				padding: 0;
+			}
+
+			nav {
+				height: 70px;
+				width: 100%;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				border-bottom: 1px solid #bec9d4;
+				background: white;
+				margin-bottom: 10px;
+				position: sticky;
+				top: 0;
+				left: 0;
+				z-index: 3;
+			}
+			nav a {
+				transition: all 0.4s ease;
+				text-decoration: none;
+				color: black;
+			}
+
+			nav a:hover {
+				scale: 1.05;
+			}
+			nav .left {
+				display: flex;
+				align-items: center;
+				gap: 50px;
+				margin-left: 15px;
+			}
+			nav .left .logo {
+				font-weight: bold;
+				font-size: 18px;
+				display: flex;
+				align-items: center;
+				gap: 10px;
+			}
+			nav .left .logo img {
+				width: 40px;
+			}
+
+			nav .right {
+				display: flex;
+				align-items: center;
+				justify-content: flex-end;
+				height: 100%;
+			}
+
+			nav .right a {
+				padding: 12px 24px;
+				margin: 20px;
+				font-size: 18px;
+				font-weight: 500;
+			}
+
+			@media (max-width: 738px) {
+				nav .right a {
+					padding: 8px 10px;
+					margin: 10px;
+					font-size: 15px;
+					font-weight: 500;
+				}
+			}
+
+			.register {
+				background-color: #54ab6a;
+				color: white;
+			}
+
+			.register:hover {
+				background-color: #7bbe8c;
+			}
+
+			.form {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				flex-direction: column;
+				gap: 10px;
+				margin-top: 15px;
+
+				padding: 10px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<nav>
+			<div class="left">
+				<a href="{{url_for('index')}}" class="logo">
+					<img
+						src="{{ url_for('static', filename='images/logo.jpg') }}"
+						alt=""
+					/>
+					<span>Land Estate</span>
+				</a>
+			</div>
+			<div class="right">
+				<a href="{{url_for('citizen.buyed_lands')}}">Profile</a>
+				<a href="{{url_for('citizen.logout')}}" class="register">
+					logout
+				</a>
+			</div>
+		</nav>
+		<div class="form">
+			<h2>Confirm Payment</h2>
+			<p>Item: {{ item_name }}</p>
+			<p>Amount: {{ order['amount'] / 100 }} INR</p>
+			<form
+				action="{{ url_for('citizen.success',land_id=land_id,buyer_id=buyer_id,price=price,name=item_name) }}"
+				method="post"
+			>
+				<input
+					type="hidden"
+					name="razorpay_payment_id"
+					value="{{ order['id'] }}"
+				/>
+				<input
+					type="hidden"
+					name="razorpay_order_id"
+					value="{{ order['id'] }}"
+				/>
+				<script>
+					var options = {
+						key: 'rzp_test_SWFL6BUt4Tupkp',
+						amount: "{{ order['amount'] }}",
+						currency: 'INR',
+						name: '{{ item_name }}',
+						description: 'Payment for {{ item_name }}',
+						order_id: "{{ order['id'] }}",
+						handler: function (response) {
+							document.querySelector('form').submit();
+						},
+						prefill: {
+							name: '',
+							email: '',
+							contact: '',
+						},
+						theme: {
+							color: '#F37254',
+						},
+						modal: {
+							ondismiss: function () {
+								window.location.href =
+									"{{ url_for('citizen.cancel') }}";
+							},
+						},
+					};
+					var rzp1 = new Razorpay(options);
+					// rzp1.open();
+				</script>
+				<button
+					type="button"
+					onclick="rzp1.open()"
+					class="register"
+					style="
+						padding: 12px 24px;
+						color: white;
+						font-size: 18px;
+						font-weight: 500;
+						border: none;
+						cursor: pointer;
+					"
+				>
+					Pay with Razorpay
+				</button>
+			</form>
+		</div>
+	</body>
+</html>

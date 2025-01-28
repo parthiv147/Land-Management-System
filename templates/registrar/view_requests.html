@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Land Requests
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Land Requests</h2>
+
+    {% if land_details %}
+    <table class="table table-striped styled-table">
+        <thead>
+            <tr class="styled-thead">
+                <th>Land ID</th>
+                <th>Owner Name</th>
+                <th>Land Area (sq. ft)</th>
+                <th>Location</th>
+                <th>Price</th>
+                <th>Survey Number</th>
+                <th>Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for land in land_details %}
+            <tr class="styled-td">
+                <td>{{ land.land_id }}</td>
+                <td>{{ land.full_name }}</td>
+                <td>{{ land.land_area_sqft }}</td>
+                <td>{{ land.location }}</td>
+                <td>{{ land.price }}</td>
+                <td>{{ land.survey_number }}</td>
+                <td>
+                    <a href="{{ url_for('registrar.view_land', land_id=land.land_id) }}"
+                        class="btn btn-info">View Details</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>No land requests found.</p>
+    {% endif %}
+</div>
+
+<style>
+    /* Custom Styles */
+    .styled-table {
+        width: 100%;
+    }
+
+    .styled-thead {
+        background-color: #007bff;
+        color: #fff;
+    }
+
+    .styled-td {
+        background-color: #f8f9fa;
+    }
+</style>
+{% endblock %}

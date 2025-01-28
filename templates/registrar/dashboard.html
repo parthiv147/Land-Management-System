@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Admin Dashboard
+{% endblock %}
+
+{% block style %}
+<style>
+    /* Custom CSS styles */
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f9fa;
+        /* Light background color */
+    }
+
+    .container {
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 20px;
+    }
+
+    .card {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+    }
+
+    .card-title {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .card-link {
+        display: block;
+        margin-top: 10px;
+        text-decoration: none;
+        color: #007bff;
+        /* Blue color for links */
+    }
+
+    .register {
+        background-color: #54ab6a;
+        color: white;
+    }
+
+    .register:hover {
+        background-color: #7bbe8c;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <h3 class="card-title">View Requests</h3>
+                <p>Manage view requests and their details.</p>
+                <a href="{{url_for('registrar.view_requests')}}" class="card-link">Go to Requests</a>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <h3 class="card-title">View Approved lands</h3>
+                <p>View Approved Lands.</p>
+                <a href="{{url_for('registrar.approved_lands')}}" class="card-link">Go to lands</a>
+            </div>
+        </div>
+    </div>
+    
+    </div>
+    <div class="text-center mt-4">
+        <a href="{{url_for('registrar.logout')}}" class="btn register">Logout</a>
+    </div>
+</div>
+{% endblock %}

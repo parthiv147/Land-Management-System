@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Profile</title>
+		<link
+			rel="stylesheet"
+			href="{{url_for('static',filename='css/profile.css')}}"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+			integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+			crossorigin="anonymous"
+			referrerpolicy="no-referrer"
+		/>
+	</head>
+	<body>
+		<nav>
+			<div class="left">
+				<a href="{{url_for('index')}}" class="logo">
+					<img
+						src="{{ url_for('static', filename='images/logo.jpg') }}"
+						alt=""
+					/>
+					<span>Land Estate</span>
+				</a>
+			</div>
+			<div class="right">
+				<a href="{{url_for('citizen.buyed_lands')}}">Profile</a>
+				<a href="{{url_for('citizen.logout')}}" class="register">
+					logout
+				</a>
+			</div>
+		</nav>
+
+		<!-- sidebar -->
+
+		<main class="main-content">
+			<div id="nav-bar">
+				<input id="nav-toggle" type="checkbox" />
+				<div id="nav-header">
+					<a id="nav-title" href="#">{{session.get('name')}}</a>
+					<label for="nav-toggle"
+						><span id="nav-toggle-burger"></span
+					></label>
+					<hr />
+				</div>
+				<div id="nav-content">
+					<div
+						class="nav-button {% if active == 'bought' %}active{% endif %}"
+					>
+						<a href="{{url_for('citizen.buyed_lands')}}">
+							<i class="fas fa-heart"></i><span>Bought</span>
+						</a>
+					</div>
+
+					<div
+						class="nav-button {% if active == 'sold' %}active{% endif %}"
+					>
+						<a href="{{url_for('citizen.selled_lands')}}">
+							<i class="fas fa-store"></i><span>sold</span>
+						</a>
+					</div>
+					<div
+						class="nav-button {% if active == 'sale' %}active{% endif %}"
+					>
+						<a href="{{url_for('citizen.on_sale_lands')}}">
+							<i class="fas fa-bookmark"></i></i><span>sale</span>
+						</a>
+					</div>
+				</div>
+			</div>
+
+			<div class="extended-content">
+				{% include 'messages.html' %} <br/>
+				{% block content %} {% endblock %}
+			</div>
+		</main>
+
+		<script>
+			// Check if the screen width is less than or equal to a certain value (e.g., 768 pixels)
+			if (window.matchMedia('(max-width: 768px)').matches) {
+				// Set the checked property of the input element to true
+				document.getElementById('nav-toggle').checked = true;
+			}
+		</script>
+	</body>
+</html>

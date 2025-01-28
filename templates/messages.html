@@ -1,0 +1,17 @@
+{% with messages = get_flashed_messages() %} {% if messages %} {% for message in
+messages %}
+<div
+	class="alert alert-info alert-dismissible fade show"
+	role="alert"
+	style="
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 18px;
+		font-weight: 550;
+		margin: 10px 0;
+	"
+>
+	{{ message }}
+</div>
+{% endfor %} {% endif %} {% endwith %}

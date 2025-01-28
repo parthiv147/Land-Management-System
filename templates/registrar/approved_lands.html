@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Approved Lands
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <a href="{{ url_for('registrar.dashboard') }}" class="btn btn-secondary mb-4">Back</a>
+    <h2 class="text-center mb-4">Approved Lands</h2>
+    {% if land_details %}
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Owner Name</th>
+                    <th>Email</th>
+                    <th>Land Area (sq. ft)</th>
+                    <th>Location</th>
+                    <th>Price</th>
+                    <th>Survey Number</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for land in land_details %}
+                <tr>
+                    <td>{{ land.Full_Name }}</td>
+                    <td>{{ land.email }}</td>
+                    <td>{{ land.land_area_sqft }}</td>
+                    <td>{{ land.location }}</td>
+                    <td>${{ land.price }}</td>
+                    <td>{{ land.survey_number }}</td>
+                    <td>
+                        <a href="{{ url_for('registrar.approve_view_land', land_id=land.land_id) }}" class="btn btn-info btn-sm mr-2"
+                            role="button">View Details</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="alert alert-info text-center" role="alert">
+        No approved lands found.
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Land Details
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+	<a href="{{ url_for('registrar.dashboard') }}" class="btn btn-secondary btn-sm mb-3">Back</a>
+	<div class="card p-4 shadow-sm">
+		
+		<div class="card p-4 shadow-sm">
+		<h2 class="mb-4">Land Details</h2>
+		{% if land_details %}
+		<div class="table-responsive">
+			<table class="table table-bordered">
+				<tbody>
+					<tr>
+						<th scope="row" class="w-25">Land ID</th>
+						<td>{{ land_details.land_id }}</td>
+					</tr>
+					<tr>
+						<th scope="row">Owner ID</th>
+						<td>{{ land_details.owner_id }}</td>
+					</tr>
+					<tr>
+						<th scope="row">Land Area (sq. ft)</th>
+						<td>{{ land_details.land_area_sqft }}</td>
+					</tr>
+					<tr>
+						<th scope="row">Location</th>
+						<td>{{ land_details.location }}</td>
+					</tr>
+					<tr>
+						<th scope="row">Price</th>
+						<td>{{ land_details.price }}</td>
+					</tr>
+					<tr>
+						<th scope="row">Survey Number</th>
+						<td>{{ land_details.survey_number }}</td>
+					</tr>
+					<tr>
+						<th scope="row">Owner Name</th>
+						<td>{{ land_details.owner_first_name }} {{ land_details.owner_last_name }}</td>
+					</tr>
+					<tr>
+						<th scope="row">Owner Username</th>
+						<td>{{ land_details.owner_username }}</td>
+					</tr>
+					<tr>
+						<th scope="row">Owner Date of Birth</th>
+						<td>{{ land_details.owner_date_of_birth }}</td>
+					</tr>
+					<tr>
+						<th scope="row">Owner Email</th>
+						<td>{{ land_details.owner_email }}</td>
+					</tr>
+					<tr>
+						<th scope="row">Owner Phone Number</th>
+						<td>{{ land_details.owner_phone_number }}</td>
+					</tr>
+					<tr>
+						<th scope="row">Owner User Type</th>
+						<td>{{ land_details.owner_user_type }}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<h3 class="mt-4">Attachments:</h3>
+<div class="row">
+	<div class="col-md-6">
+		<a href="{{ url_for('static', filename='uploads/aadhar/' + land_details.owner_id|string + '_aadhar.jpg') | safe }}"
+			target="_blank" class="btn btn-outline-primary btn-block">View Aadhar</a>
+	</div>
+	<div class="col-md-6">
+		<a href="{{ url_for('static', filename='uploads/photo/' + land_details.owner_id|string + '_photo.jpg') | safe }}"
+			target="_blank" class="btn btn-outline-primary btn-block">View Photo</a>
+	</div>
+	<div class="col-md-6 mt-3">
+		<a href="{{ url_for('static', filename='uploads/sign/' + land_details.owner_id|string + '_sign.jpg') | safe }}"
+			target="_blank" class="btn btn-outline-primary btn-block">View Sign</a>
+	</div>
+	<div class="col-md-6 mt-3">
+		<a href="{{ url_for('static', filename='uploads/bank/' + land_details.owner_id|string + '_bank.jpg') | safe }}"
+			target="_blank" class="btn btn-outline-primary btn-block">View Bank</a>
+	</div>
+	<div class="col-md-12 mt-3">
+		<a href="{{ url_for('static', filename='uploads/land_doc/' + land_details.owner_id|string + '_' + land_details.land_id|string + '_land_doc.jpg') | safe }}"
+			target="_blank" class="btn btn-outline-primary btn-block">View Land Document</a>
+	</div>
+	<div class="col-md-12 mt-3">
+		<a href="{{ url_for('static', filename='uploads/land_photo/' + land_details.owner_id|string + '_' + land_details.land_id|string + '_land_photo_1.jpg') | safe }}"
+			target="_blank" class="btn btn-outline-primary btn-block">View Land Photo 1</a>
+	</div>
+	<div class="col-md-12 mt-3">
+		<a href="{{ url_for('static', filename='uploads/land_photo/' + land_details.owner_id|string + '_' + land_details.land_id|string + '_land_photo_2.jpg') | safe }}"
+			target="_blank" class="btn btn-outline-primary btn-block">View Land Photo 2</a>
+	</div>
+	<div class="col-md-12 mt-3">
+		<a href="{{ url_for('static', filename='uploads/land_photo/' + land_details.owner_id|string + '_' + land_details.land_id|string + '_land_photo_3.jpg') | safe }}"
+			target="_blank" class="btn btn-outline-primary btn-block">View Land Photo 3</a>
+	</div>
+</div>
+
+		<div class="mt-4">
+			<a href="{{ url_for('registrar.approve_land', land_id=land_details.land_id) }}"
+				class="btn btn-success mr-2">Approve Land</a>
+			<a href="{{ url_for('registrar.reject_land', land_id=land_details.land_id) }}" class="btn btn-danger">Reject
+				Land</a>
+		</div>
+		{% else %}
+		<p>Land details not found.</p>
+		{% endif %}
+	</div>
+</div>
+{% endblock %}

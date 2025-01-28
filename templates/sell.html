@@ -1,0 +1,187 @@
+<!-- sell.html -->
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+		/>
+
+		<link
+			rel="stylesheet"
+			href="{{url_for('static',filename='css/home.css')}}"
+		/>
+
+		<link
+			rel="stylesheet"
+			href="{{url_for('static',filename='css/sell.css')}}"
+		/>
+		<title>Sell Land</title>
+	</head>
+	<body>
+		<nav>
+			<div class="left">
+				<a href="{{url_for('index')}}" class="logo">
+					<img
+						src="{{ url_for('static', filename='images/logo.jpg') }}"
+						alt=""
+					/>
+					<span>Land Estate</span>
+				</a>
+			</div>
+			<div class="right">
+				<a href="{{url_for('citizen.buyed_lands')}}">Profile</a>
+				<a href="{{url_for('citizen.logout')}}" class="register">
+					logout
+				</a>
+			</div>
+		</nav>
+
+		<div class="main-heading">
+			<h1>Register Land For Sale.</h1>
+		</div>
+
+		{% with messages = get_flashed_messages(with_categories=true) %} {% if
+		messages %} {% for category, message in messages %}
+		<div
+			style="
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-size: 18px;
+				font-weight: 550;
+			"
+			role="alert"
+		>
+			{{ message }}
+		</div>
+		{% endfor %} {% endif %} {% endwith %}
+
+		<form class="sell-form" method="POST" enctype="multipart/form-data">
+			<div>
+				<label for="title">Land Title:</label>
+				<input type="text" id="title" name="land_title" required />
+			</div>
+			<div>
+				<label for="location">Location:</label>
+				<select id="location" name="location" style="width: 50%">
+					<option value="Vijayawada">Vijayawada</option>
+					<option value="Hyderabad">Hyderabad</option>
+					<option value="Guntur">Guntur</option>
+					<option value="Vizag">Vizag</option>
+					<option value="Tirupati">Tirupati</option>
+					<option value="Kurnool">Kurnool</option>
+					<option value="Nellore">Nellore</option>
+				</select>
+			</div>
+
+			<div>
+				<label for="land_area_sqft">Square Feet:</label>
+				<input
+					type="text"
+					id="land_area_sqft"
+					name="land_area_sqft"
+					required
+				/>
+			</div>
+
+			<div>
+				<label for="price">Amount:</label>
+				<input type="text" id="price" name="price" required />
+			</div>
+
+			<div>
+				<label for="survey_number" class="form-label"
+					>Survey Number</label
+				>
+				<input
+					type="text"
+					class="form-control"
+					id="survey_number"
+					name="survey_number"
+					required
+				/>
+			</div>
+
+			<!-- Multiple File Upload for Land Photos -->
+			<div>
+				<label for="land_photo" class="form-label"
+					>Land Photos (3 mandatory)</label
+				>
+				<input
+					type="file"
+					class="form-control"
+					id="land_photo"
+					name="land_photo"
+					accept=".jpg, .jpeg, .png"
+					multiple
+					required
+				/>
+			</div>
+
+			<!-- Land Document Upload -->
+			<div>
+				<label for="land_doc" class="form-label">Land Document</label>
+				<input
+					type="file"
+					class="form-control"
+					id="land_doc"
+					name="land_doc"
+					accept=".jpg, .jpeg, .png"
+					required
+				/>
+			</div>
+
+			<!-- Other Required Documents -->
+			<div>
+				<label for="aadhar" class="form-label">Aadhar Card</label>
+				<input
+					type="file"
+					class="form-control"
+					id="aadhar"
+					name="aadhar"
+					accept=".jpg, .jpeg, .png"
+					required
+				/>
+			</div>
+			<div>
+				<label for="photo" class="form-label">Photo</label>
+				<input
+					type="file"
+					class="form-control"
+					id="photo"
+					name="photo"
+					accept=".jpg, .jpeg, .png"
+					required
+				/>
+			</div>
+			<div>
+				<label for="sign" class="form-label">Signature</label>
+				<input
+					type="file"
+					class="form-control"
+					id="sign"
+					name="sign"
+					accept=".jpg, .jpeg, .png"
+					required
+				/>
+			</div>
+			<div>
+				<label for="bank" class="form-label">Bank Statement</label>
+				<input
+					type="file"
+					class="form-control"
+					id="bank"
+					name="bank"
+					accept=".jpg, .jpeg, .png"
+					required
+				/>
+			</div>
+
+			<button type="submit">Submit</button>
+		</form>
+	</body>
+</html>

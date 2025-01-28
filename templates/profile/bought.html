@@ -1,0 +1,48 @@
+{% extends "profile/_profile.html" %} {% block content %}
+<div class="first-section">
+	<h2>Bought lands</h2>
+
+	<a class="btn-sale" href="{{url_for('citizen.sell')}}">Sale Land</a>
+</div>
+
+<div class="second-section">
+	{% if land_details %} {% for land in land_details %}
+	<div class="card">
+		<div class="imageContainer">
+			<img
+				src="{{ url_for('static', filename='uploads/land_photo/' + land.owner_id|string + '_' + land.land_id|string + '_land_photo_' + 1|string + '.jpg') }}"
+				alt="img"
+			/>
+		</div>
+		<div class="textContainer">
+			<p class="address">
+				<img
+					src="{{ url_for('static', filename='images/pin.png')}}"
+					alt="pin"
+				/>
+				<span>{{land.location}}</span>
+			</p>
+			<p class="land_title">{{land.land_title}}</p>
+			<p class="price">₹ {{land.price}}</p>
+			<div class="bottom">
+				<div class="features">
+					<div class="feature">
+						<img
+							src="{{ url_for('static', filename='images/size.png')}}"
+							alt="sqft"
+						/>
+						<span>{{land.land_area_sqft}} sqft</span>
+					</div>
+					<div class="feature">
+						<img src="{{ url_for('static', filename='images/size.png')}}" alt="survey" />
+						<span>survey no : {{ land.survey_number }}</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	{% endfor %} {% else %}
+	<p>No lands available.</p>
+	{% endif %}
+</div>
+{% endblock %}

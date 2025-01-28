@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Land Estate</title>
+
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+		/>
+
+		<link
+			rel="stylesheet"
+			href="{{url_for('static',filename='css/home.css')}}"
+		/>
+
+		<script
+			defer
+			src="{{url_for('static',filename='js/modal.js')}}"
+		></script>
+	</head>
+	<body>
+		{% if session.get('user_id') %}
+		<nav>
+			<div class="left">
+				<a href="{{url_for('index')}}" class="logo">
+					<img
+						src="{{ url_for('static', filename='images/logo.jpg') }}"
+						alt=""
+					/>
+					<span>Land Estate</span>
+				</a>
+			</div>
+			<div class="right">
+				<a href="{{url_for('citizen.buyed_lands')}}">Profile</a>
+				<a href="{{url_for('citizen.logout')}}" class="register">
+					logout
+				</a>
+			</div>
+		</nav>
+		{% else %}
+		<nav>
+			<div class="left">
+				<a href="{{url_for('index')}}" class="logo">
+					<img
+						src="{{ url_for('static', filename='images/logo.jpg') }}"
+						alt=""
+					/>
+					<span>Land Estate</span>
+				</a>
+			</div>
+			<div class="right">
+				<a href="{{url_for('auth.login')}}">Sign in</a>
+				<a href="{{url_for('auth.signup')}}" class="register">
+					Sign up
+				</a>
+			</div>
+		</nav>
+		{% endif %}
+		<main>
+			<div class="searchbar">
+				<div class="heading">
+					<h1>Discover Your Dream Land Today!</h1>
+				</div>
+
+				<form
+					class="filter"
+					method="POST"
+					enctype="multipart/form-data"
+					action="{{ url_for('citizen.search') }}"
+				>
+					<div class="item">
+						<label htmlFor="location">Location</label>
+						<select name="location" id="location">
+							<option value="" {% if location=="" %}selected{% endif %}>All</option>
+							<option value="Vijayawada" {% if location=="Vijayawada" %}selected{% endif %}>Vijayawada</option>
+							<option value="Hyderabad" {% if location=="Hyderabad" %}selected{% endif %}>Hyderabad</option>
+							<option value="Guntur" {% if location=="Guntur" %}selected{% endif %}>Guntur</option>
+							<option value="Vizag" {% if location=="Vizag" %}selected{% endif %}>Vizag</option>
+							<option value="Tirupati" {% if location=="Tirupati" %}selected{% endif %}>Tirupati</option>
+							<option value="Kurnool" {% if location=="Kurnool" %}selected{% endif %}>Kurnool</option>
+							<option value="Nellore" {% if location=="Nellore" %}selected{% endif %}>Nellore</option>
+						</select>
+					</div>
+
+					<div class="item">
+						<label htmlFor="minSqft">Min Sqft</label>
+						<input
+							type="number"
+							id="minSqft"
+							name="minSqft"
+							value="{{min_sqft}}"
+							placeholder="Enter in sqft..."
+						/>
+					</div>
+					<div class="item">
+						<label htmlFor="maxSqft">Max Sqft</label>
+						<input
+							type="number"
+							id="maxSqft"
+							value="{{max_sqft}}"
+							name="maxSqft"
+							placeholder="Enter in sqft..."
+						/>
+					</div>
+
+					<div class="item">
+						<label htmlFor="minPrice">₹ Min Price</label>
+						<input
+							type="number"
+							id="minPrice"
+							value="{{min_price}}"
+							name="minPrice"
+							placeholder="Enter min price"
+						/>
+					</div>
+					<div class="item">
+						<label htmlFor="maxPrice">₹ Max Price</label>
+						<input
+							type="number"
+							id="maxPrice"
+							value="{{max_price}}"
+							name="maxPrice"
+							placeholder="Enter max price"
+						/>
+					</div>
+					<button type="submit">
+						<i
+							class="fa fa-search"
+							aria-hidden="true"
+							style="font-size: 20px"
+						></i>
+					</button>
+				</form>
+			</div>
+			{% include 'messages.html' %} <br/>
+			{% block content %} {% endblock %}
+		</main>
+	</body>
+</html>

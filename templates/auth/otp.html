@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>OTP validation</title>
+		<link
+			rel="stylesheet"
+			href="{{url_for('static',filename='css/login.css')}}"
+		/>
+	</head>
+
+	<body>
+		{% with messages = get_flashed_messages() %} {% if messages %}
+		<ul class="flashes">
+			{% for message in messages %}
+			<center>
+				<li>{{ message }}</li>
+			</center>
+			{% endfor %}
+		</ul>
+		{% endif %} {% endwith %}
+		<form action="{{url_for('auth.otp',token=token)}}" method="POST">
+			<div class="card">
+				<div class="form">
+					<h3>OTP VERIFICATION</h3>
+
+					<div class="input-field">
+						<i class="fa fa-envelope"></i>
+						<h5>Enter the code we just send on your Email</h5>
+					</div>
+					<div class="input-field">
+						<i class="fa fa-lock"></i>
+						<input
+							type="text"
+							name="otp"
+							placeholder="Enter otp "
+						/>
+					</div>
+
+					<button type="submit">Sign up</button>
+				</div>
+			</div>
+		</form>
+	</body>
+</html>

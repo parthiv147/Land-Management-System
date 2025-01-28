@@ -1,0 +1,97 @@
+{% extends "home/_home.html" %} {% block content %}
+<div class="card-container">
+	{% if land_details %} {% for land in land_details %}
+	<div class="card">
+		<div
+			class="imageContainer"
+			data-image1="{{ url_for('static', filename='uploads/land_photo/' + land.owner_id|string + '_' + land.land_id|string + '_land_photo_' + 1|string + '.jpg') }}"
+			data-image2="{{ url_for('static', filename='uploads/land_photo/' + land.owner_id|string + '_' + land.land_id|string + '_land_photo_' + 2|string + '.jpg') }}"
+			data-image3="{{ url_for('static', filename='uploads/land_photo/' + land.owner_id|string + '_' + land.land_id|string + '_land_photo_' + 3|string + '.jpg') }}"
+		>
+			<img
+				src="{{ url_for('static', filename='uploads/land_photo/' + land.owner_id|string + '_' + land.land_id|string + '_land_photo_' + 1|string + '.jpg') }}"
+				alt="img"
+			/>
+		</div>
+		<div class="textContainer">
+			<p class="address">
+				<img
+					src="{{ url_for('static', filename='images/pin.png')}}"
+					alt="pin"
+				/>
+				<span>{{land.location}}</span>
+			</p>
+			<p class="land_title">{{land.land_title}}</p>
+
+			<p class="price">₹ {{land.price}}</p>
+
+			<div class="feature">
+				<img src="{{url_for('static', filename='images/size.png')}}" alt="survey" />
+				<span>survey no : {{ land.survey_number }}</span>
+			</div>
+			<div class="bottom">
+				<div class="features">
+					<div class="feature">
+						<img
+							src="{{ url_for('static', filename='images/size.png')}}"
+							alt="sqft"
+						/>
+						<span>{{land.land_area_sqft}} sqft</span>
+					</div>
+				</div>
+				{% if session.get('user_id') and session.get('user_id')!=land.owner_id %}
+				<a
+					class="buy login"
+					style="text-decoration: none"
+					href="{{ url_for('citizen.payment', 
+                        land_id=land.land_id, 
+                        buyer_id=session.get('user_id'), 
+                        price=land.price, 
+                        name=land.land_title|string) }}"
+					>Buy</a>
+				{% elif session.get('user_id')==land.owner_id %}
+				<p class="buy login" style="text-decoration: none">Your land</p>
+				{% else %}
+				<button class="buy notloged">Buy</button>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+	{% endfor %} {% else %}
+	<p>No lands available.</p>
+	{% endif %}
+</div>
+
+<!-- modal popup -->
+<div class="modal hidden">
+	<button class="close-modal">&times;</button>
+	<p>
+		Please <b><a href="{{ url_for('auth.login') }}">Log in</a></b> to buy.
+	</p>
+</div>
+<div class="overlay-popup hidden"></div>
+
+<!-- slider popup -->
+<div class="overlay-slider hidden"></div>
+<div class="slider-modal hidden">
+	<button class="slider-close-modal">&times;</button>
+	<div class="slider">
+		<div class="slide">
+			<img src="" alt="img" class="sliderImage" />
+		</div>
+
+		<div class="slide">
+			<img src="" alt="img" class="sliderImage" />
+		</div>
+
+		<div class="slide">
+			<img src="" alt="img" class="sliderImage" />
+		</div>
+
+		<button class="slider__btn slider__btn--left">&larr;</button>
+		<button class="slider__btn slider__btn--right">&rarr;</button>
+		<div class="dots"></div>
+	</div>
+</div>
+
+{% endblock %}
