@@ -1,0 +1,135 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap');
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	font-family: 'Poppins', sans-serif;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	height: 100vh;
+	width: 100vw;
+}
+
+form {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 15px;
+}
+
+.card {
+	background: #fff;
+	box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
+		rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+	width: 300px;
+	max-width: 300px;
+	border-radius: 10px;
+}
+
+.overlay {
+	width: 100%;
+	height: 100%;
+	background-color: rgba(192, 6, 243, 0.31);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	text-align: center;
+}
+
+.overlay h3 {
+	color: rgb(1, 1, 3);
+	letter-spacing: 1px;
+	font-size: 18px;
+	font-weight: 700;
+	opacity: 0.6;
+}
+.overlay p {
+	color: rgb(0, 0, 0);
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.form {
+	padding: 10%;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+}
+.form h3 {
+	font-size: 28px;
+	font-weight: 500;
+	position: relative;
+	margin-bottom: 10px;
+	color: #08110b;
+}
+
+.fa {
+	color: #54ab6a;
+	position: absolute;
+	top: 10px;
+	font-size: 18px;
+}
+
+.input-field {
+	width: 100%;
+	margin-bottom: 10px;
+	position: relative;
+}
+.input-field input,
+select {
+	display: block;
+	width: 100%;
+	padding: 10px 30px;
+	outline: none;
+	border: none;
+	border-bottom: 2px solid rgb(182, 180, 180);
+	font-size: 15px;
+}
+
+.form a {
+	color: #7bbe8c;
+	text-decoration: none;
+	font-size: 14px;
+	margin: 5px 0;
+}
+
+.form a:hover {
+	text-decoration: underline;
+}
+
+button {
+	height: 45px;
+	background: #54ab6a;
+	border: none;
+	color: white;
+	border-radius: 5px;
+	font-size: 18px;
+	cursor: pointer;
+	margin: 8px 0;
+}
+
+button:hover {
+	background: #7bbe8c;
+}
+
+p {
+	text-align: center;
+	font-size: 14px;
+	margin: 5px 0;
+}
+
+p a {
+	text-decoration: underline !important;
+	font-weight: 500;
+}
+
+input::placeholder {
+	font-family: 'Poppins', sans-serif;
+}
